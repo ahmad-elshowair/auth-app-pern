@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import {Form, Button} from 'react-bootstrap';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 const Login = ({user, setUser}) => {
 
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+const navigate = useNavigate();
     const handleLogin = async(event)=>{
         event.preventDefault();
         try {
@@ -18,6 +19,7 @@ const Login = ({user, setUser}) => {
             if(response){
                 setSuccess(true)
                 setUser(response.data);
+                navigate('/dashboard');
             }
 
         } catch (error) {
@@ -51,6 +53,10 @@ const Login = ({user, setUser}) => {
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
+            </Form.Group>
+            {/* have an account  */}
+            <Form.Group controlId="formBasicButton" className='d-grid'>
+                <Link to='/register'>Register</Link>
             </Form.Group>
             {error && <Form.Text className="text-danger">Invalid email or password</Form.Text>}
             {success && <Form.Text className="text-success">Login successful</Form.Text>}
