@@ -57,9 +57,9 @@ const Dashboard = ({user, setUser, users, setUsers, error, success, setError, se
 
     }
 
-    const allUser = users.map(user =>
+    const allUser = users.map((user, index) =>
         <RowUser
-            key={user.user_id} 
+            key={index} 
             user={user}
             handleDelete={handleDelete}
         />

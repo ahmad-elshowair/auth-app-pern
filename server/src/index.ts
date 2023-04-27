@@ -12,7 +12,7 @@ const port = config.port || 3000;
 
 // add a limiter of requests
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 30 * 60 * 1000,
   max: 20,
   standardHeaders: true,
   legacyHeaders: false,
