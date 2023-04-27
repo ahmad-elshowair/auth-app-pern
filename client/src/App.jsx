@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import Login from './pages/Login.jsx'
-import Dashboard from './components/Dashboard';
+import Dashboard from './pages/Dashboard';
 import axios from 'axios';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SharedLayout from './pages/SharedLayout';
@@ -34,7 +34,7 @@ const [success, setSuccess] = useState(false)
           <Route 
             path='/register' 
             element={
-              <Register/>
+              <Register setUsers={setUsers}/>
             }
           />
          

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Card} from 'react-bootstrap';
-import RowUser from './Row.User';
+import RowUser from '../components/Row.User';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 const Dashboard = ({user, setUser, users, setUsers, error, success, setError, setSuccess}) => {

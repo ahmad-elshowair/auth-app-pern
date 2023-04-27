@@ -2,9 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({setUsers}) => {
     const navigate =useNavigate();
     
+    const addUser = (user) =>{
+        setUsers(prev => [...prev, user]);
+    }
+
     const [userForm, setUserForm] = useState({
         user_email: '',
         user_name: '',
@@ -31,6 +35,7 @@ const Register = () => {
         try {
             const response = await axios.post('http://localhost:5000/users/create-user', body);
             if(response){
+                addUser(response.data);
                 navigate('/login');
                 console.log(response.data);
             }
