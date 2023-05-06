@@ -13,10 +13,10 @@ const port = config.port || 3000;
 // add a limiter of requests
 const limiter = rateLimit({
   windowMs: 30 * 60 * 1000,
-  max: 20,
+  max: 30,
   standardHeaders: true,
   legacyHeaders: false,
-  message: "you have requested a lot, in 15 mins you can try again later",
+  message: "you have requested a lot, in 30 mins you can try again later",
 });
 
 // use a middleware of parsing incoming requests

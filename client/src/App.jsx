@@ -55,6 +55,7 @@ const [success, setSuccess] = useState(false)
                   setSuccess={setSuccess}
                   setError={setError}
                   user={user}
+                  setUser={setUser}
                   users={users}
                   setUsers={setUsers}
                 />

@@ -7,40 +7,46 @@ const Dashboard = ({user, setUser, users, setUsers, error, success, setError, se
 
 
     const refresh = async()=>{
-        const response = await axios.post('http://localhost:5000/users/refresh-token', {
+        const response = await axios.post('http://localhost:5000/users/refresh', {
             token: user.refreshToken
         });
 
-        setUser({
-            ...user,
-            accessToken: response.data.accessToken,
-            refreshToken: response.data.refreshToken
-        });
+        console.log(response);
+        setUser( (perv) => ({
+            ...perv,
+            accessToken: response.newAccessToken,
+            refreshToken: response.newRefreshToken
+            })
+        );
         return response.data;
     }
     const jwtAxios = axios.create();
+
     jwtAxios.interceptors.request.use(
        async (config) => {
 
         let currentDate= new Date();
+
         const decodedToken = jwt_decode(user.accessToken);
-        if(decodedToken.exp * 1000 < currentDate.getTime){
+        
+        if(decodedToken.exp * 1000 < currentDate.getTime()){
             const response = await refresh();
-            console.log(response.data);
-            config.headers.authorization = `Bearer ${response.data.accessToken}`;
+            console.log(response);
+            config.headers["authorization"] = `Bearer ${response.newAccessToken}`;
         }
         
         return config;
         },
-        error => {
+        (error) => {
             return Promise.reject(error);
         }
-    )
+    );
+
     const handleDelete = async(id) => {
         setError(false);
         setSuccess(false);
         try{
-            await axios.delete(`http://localhost:5000/users/delete-user/${id}`,{
+            await jwtAxios.delete(`http://localhost:5000/users/delete-user/${id}`,{
                 headers: {
                     'authorization': `Bearer ${user.accessToken}`
                 }
